@@ -11,6 +11,10 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+/**
+ *
+ * @author nebir0s
+ */
 public class BoardScreen extends JPanel {
 
     /**
@@ -35,6 +39,68 @@ public class BoardScreen extends JPanel {
 
     JButton go;
     JButton quit;
+
+    /**
+     *
+     */
+    public void quitButtonActionListener() {
+        if (JOptionPane.showConfirmDialog(this, "Are you sure?") == JOptionPane.OK_OPTION) {
+            System.exit(0);
+        }
+    }
+
+    /**
+     *
+     */
+    public void goButtonActionListener() {
+        mw.showCard("Two");
+        //mw.setBoard();
+        mw.resetAll();
+    }
+
+    /**
+     *
+     * @param m
+     */
+    public void setMaxPlayers(int m) {
+        maxPlayers = m;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public int returnMaxPlayers() {
+        return maxPlayers;
+    }
+
+    /**
+     *
+     */
+    public void setUpPlayers() {
+        players = new ArrayList<Player>();
+        for (int i = 0; i < returnMaxPlayers(); i++) {
+            players.add(new Player(i));
+        }
+        //get and add player(s) names
+
+        //manual color entry - automate later
+        if (0 < returnMaxPlayers()) {
+            players.get(0).setPlayerColor(Color.green);
+        }
+        if (1 < returnMaxPlayers()) {
+            players.get(1).setPlayerColor(Color.blue);
+        }
+        if (2 < returnMaxPlayers()) {
+            players.get(2).setPlayerColor(Color.red);
+        }
+
+    }
+
+    /**
+     *
+     * @param mw
+     */
     public BoardScreen(MainWindow mw) {
         this.mw = mw;
 
@@ -93,7 +159,7 @@ public class BoardScreen extends JPanel {
         extraInfo = new JLabel();
 
         success = new JLabel("");
-        
+
         //modify action listener to move between the n players 
         //outside needs to know some amount of player data which may be got be asking and passing to inside
         //no need to create separate stores outside
@@ -140,48 +206,7 @@ public class BoardScreen extends JPanel {
 
         stats.add(extraInfo);
         stats.add(success);
-        
-    }
-
-    public void quitButtonActionListener() {
-        if (JOptionPane.showConfirmDialog(this, "Are you sure?") == JOptionPane.OK_OPTION) {
-            System.exit(0);
-        }
-    }
-
-    public void goButtonActionListener() {
-        mw.showCard("Two");
-        //mw.setBoard();
-        mw.resetAll();
-    }
-
-    public void setMaxPlayers(int m) {
-        maxPlayers = m;
-    }
-
-    public int returnMaxPlayers() {
-        return maxPlayers;
-    }
-
-    public void setUpPlayers() {
-        players = new ArrayList<Player>();
-        for (int i = 0; i < returnMaxPlayers(); i++) {
-            players.add(new Player(i));
-        }
-        //get and add player(s) names
-
-        //manual color entry - automate later
-        if (0 < returnMaxPlayers()) {
-            players.get(0).setPlayerColor(Color.green);
-        }
-        if (1 < returnMaxPlayers()) {
-            players.get(1).setPlayerColor(Color.blue);
-        }
-        if (2 < returnMaxPlayers()) {
-            players.get(2).setPlayerColor(Color.red);
-        }
 
     }
-
 
 }
